@@ -28,3 +28,6 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Portfolio structure
+- Keep the requested portfolio as one anchor-navigated page at `/`, with reusable presentation pieces in `src/components/portfolio`, to preserve the requested single-page browsing experience.
