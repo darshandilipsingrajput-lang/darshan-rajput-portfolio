@@ -12,16 +12,19 @@ import {
   Database,
   Eraser,
   FileSpreadsheet,
+  FileText,
   GraduationCap,
   HeartPulse,
   House,
   ListChecks,
+  Linkedin,
   Mail,
   MapPin,
   Menu,
   Microscope,
   Phone,
   Pill,
+  Presentation,
   ShieldCheck,
   ShieldPlus,
   Sparkles,
@@ -30,15 +33,6 @@ import {
   UserRound,
   X,
 } from "lucide-react";
-import {
-  SiGooglesheets,
-  SiLinkedin,
-  SiMicrosoftpowerpoint,
-  SiMicrosoftexcel,
-  SiMicrosoftword,
-  SiPostgresql,
-  SiPowerbi,
-} from "react-icons/si";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -68,21 +62,21 @@ type Skill = {
 };
 
 const technicalSkills: Skill[] = [
-  { name: "MS Excel", status: "Skilled", icon: SiMicrosoftexcel, tone: "mint" },
+  { name: "MS Excel", status: "Skilled", icon: FileSpreadsheet, tone: "mint" },
   { name: "Data Analysis", status: "Skilled", icon: ChartNoAxesColumnIncreasing, tone: "blue" },
   { name: "Data Interpretation", status: "Skilled", icon: Sparkles, tone: "lilac" },
-  { name: "Google Sheets", status: "Skilled", icon: SiGooglesheets, tone: "mint" },
-  { name: "Power BI", status: "Learning", icon: SiPowerbi, tone: "amber" },
+  { name: "Google Sheets", status: "Skilled", icon: FileSpreadsheet, tone: "mint" },
+  { name: "Power BI", status: "Learning", icon: ChartNoAxesColumnIncreasing, tone: "amber" },
   { name: "SQL", status: "Learning", icon: Database, tone: "blue" },
-  { name: "PostgreSQL (Basic)", status: "Learning", icon: SiPostgresql, tone: "sky" },
+  { name: "PostgreSQL (Basic)", status: "Learning", icon: Database, tone: "sky" },
   { name: "Data Visualization", status: "Learning", icon: ChartPie, tone: "rose" },
   { name: "Data Cleaning", status: "Learning", icon: Eraser, tone: "lilac" },
 ];
 
 const otherSkills: Skill[] = [
   { name: "Data Entry & Validation", status: "Skilled", icon: ListChecks, tone: "blue" },
-  { name: "MS Word", status: "Skilled", icon: SiMicrosoftword, tone: "sky" },
-  { name: "MS PowerPoint", status: "Skilled", icon: SiMicrosoftpowerpoint, tone: "rose" },
+  { name: "MS Word", status: "Skilled", icon: FileText, tone: "sky" },
+  { name: "MS PowerPoint", status: "Skilled", icon: Presentation, tone: "rose" },
   { name: "Medical Terminology", status: "Skilled", icon: Stethoscope, tone: "mint" },
   { name: "Pharmacovigilance", status: "Skilled", icon: ShieldPlus, tone: "amber" },
 ];
@@ -234,8 +228,8 @@ function SectionHeading({
 }
 
 type NavbarProps = {
-  linkedinUrl?: string;
-  resumeUrl?: string;
+  linkedinUrl?: string | undefined;
+  resumeUrl?: string | undefined;
 };
 
 function Navbar({ linkedinUrl, resumeUrl }: NavbarProps) {
@@ -300,7 +294,7 @@ function Navbar({ linkedinUrl, resumeUrl }: NavbarProps) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <SiLinkedin aria-hidden="true" />
+              <Linkedin aria-hidden="true" />
             </a>
           ) : null}
           <Button
@@ -640,7 +634,7 @@ function ProfessionalBackgroundSection() {
   );
 }
 
-function ContactSection({ linkedinUrl }: { linkedinUrl?: string }) {
+function ContactSection({ linkedinUrl }: { linkedinUrl?: string | undefined }) {
   return (
     <section id="contact" className="contact-section">
       <div className="portfolio-container">
@@ -659,7 +653,7 @@ function ContactSection({ linkedinUrl }: { linkedinUrl?: string }) {
             {linkedinUrl ? (
               <Button asChild variant="outline" className="site-button button-outline">
                 <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
-                  Connect on LinkedIn <SiLinkedin aria-hidden="true" />
+                  Connect on LinkedIn <Linkedin aria-hidden="true" />
                 </a>
               </Button>
             ) : null}
@@ -670,7 +664,7 @@ function ContactSection({ linkedinUrl }: { linkedinUrl?: string }) {
   );
 }
 
-function Footer({ linkedinUrl }: { linkedinUrl?: string }) {
+function Footer({ linkedinUrl }: { linkedinUrl?: string | undefined }) {
   return (
     <footer className="site-footer">
       <div className="portfolio-container footer-inner">
@@ -683,7 +677,7 @@ function Footer({ linkedinUrl }: { linkedinUrl?: string }) {
         <div className="footer-socials" aria-label="Contact links">
           {linkedinUrl ? (
             <a className="social-link" href={linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
-              <SiLinkedin aria-hidden="true" />
+              <Linkedin aria-hidden="true" />
             </a>
           ) : null}
           <a className="social-link" href="mailto:dr9325958877@gmail.com" aria-label="Email Darshan" title="Email">
@@ -700,8 +694,8 @@ function Footer({ linkedinUrl }: { linkedinUrl?: string }) {
 }
 
 type PortfolioProps = {
-  linkedinUrl?: string;
-  resumeUrl?: string;
+  linkedinUrl?: string | undefined;
+  resumeUrl?: string | undefined;
   videoSrc: string;
 };
 
