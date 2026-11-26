@@ -1,46 +1,29 @@
-import { useEffect, useState, type ElementType } from "react";
+import { useEffect, useState, type CSSProperties, type ElementType, type FormEvent } from "react";
 import {
   ArrowDownRight,
   ArrowRight,
-  ArrowUpRight,
-  Award,
   BriefcaseBusiness,
   ChartNoAxesColumnIncreasing,
   ChartPie,
-  Check,
-  ChevronDown,
   Database,
   Eraser,
   FileSpreadsheet,
   FileText,
   GraduationCap,
   HeartPulse,
-  House,
   ListChecks,
   Linkedin,
   Mail,
-  MapPin,
   Menu,
-  Microscope,
   Phone,
   Pill,
   Presentation,
-  ShieldCheck,
   ShieldPlus,
   Sparkles,
-  Sprout,
   Stethoscope,
-  UserRound,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Reveal } from "./Reveal";
 import { ScrollVideoHero } from "./ScrollVideoHero";
 
@@ -59,69 +42,27 @@ type Skill = {
   status: "Skilled" | "Learning";
   icon: ElementType;
   tone: string;
+  learningPercent: number;
 };
 
 const technicalSkills: Skill[] = [
-  { name: "MS Excel", status: "Skilled", icon: FileSpreadsheet, tone: "mint" },
-  { name: "Data Analysis", status: "Skilled", icon: ChartNoAxesColumnIncreasing, tone: "blue" },
-  { name: "Data Interpretation", status: "Skilled", icon: Sparkles, tone: "lilac" },
-  { name: "Google Sheets", status: "Skilled", icon: FileSpreadsheet, tone: "mint" },
-  { name: "Power BI", status: "Learning", icon: ChartNoAxesColumnIncreasing, tone: "amber" },
-  { name: "SQL", status: "Learning", icon: Database, tone: "blue" },
-  { name: "PostgreSQL (Basic)", status: "Learning", icon: Database, tone: "sky" },
-  { name: "Data Visualization", status: "Learning", icon: ChartPie, tone: "rose" },
-  { name: "Data Cleaning", status: "Learning", icon: Eraser, tone: "lilac" },
+  { name: "MS Excel", status: "Skilled", icon: FileSpreadsheet, tone: "mint", learningPercent: 30 },
+  { name: "Data Analysis", status: "Skilled", icon: ChartNoAxesColumnIncreasing, tone: "blue", learningPercent: 30 },
+  { name: "Data Interpretation", status: "Skilled", icon: Sparkles, tone: "lilac", learningPercent: 30 },
+  { name: "Google Sheets", status: "Skilled", icon: FileSpreadsheet, tone: "mint", learningPercent: 30 },
+  { name: "Power BI", status: "Learning", icon: ChartNoAxesColumnIncreasing, tone: "amber", learningPercent: 30 },
+  { name: "SQL", status: "Learning", icon: Database, tone: "blue", learningPercent: 30 },
+  { name: "PostgreSQL (Basic)", status: "Learning", icon: Database, tone: "sky", learningPercent: 30 },
+  { name: "Data Visualization", status: "Learning", icon: ChartPie, tone: "rose", learningPercent: 30 },
+  { name: "Data Cleaning", status: "Learning", icon: Eraser, tone: "lilac", learningPercent: 30 },
 ];
 
 const otherSkills: Skill[] = [
-  { name: "Data Entry & Validation", status: "Skilled", icon: ListChecks, tone: "blue" },
-  { name: "MS Word", status: "Skilled", icon: FileText, tone: "sky" },
-  { name: "MS PowerPoint", status: "Skilled", icon: Presentation, tone: "rose" },
-  { name: "Medical Terminology", status: "Skilled", icon: Stethoscope, tone: "mint" },
-  { name: "Pharmacovigilance", status: "Skilled", icon: ShieldPlus, tone: "amber" },
-];
-
-type Project = {
-  title: string;
-  tag: string;
-  description: string;
-  bullets: string[];
-  icon: ElementType;
-  detailIcon: ElementType;
-  artLabel: string;
-};
-
-const projects: Project[] = [
-  {
-    title: "Formulation and Evaluation of Herbal Soap Using Medicinal Plants",
-    tag: "Pharmaceutical Research Project",
-    description:
-      "An academic research project focused on the formulation and evaluation of herbal soap using medicinal plant ingredients.",
-    bullets: [
-      "Studied medicinal plant ingredients.",
-      "Explored herbal formulation development.",
-      "Evaluated physical and quality parameters.",
-      "Studied pharmaceutical applications of herbal ingredients.",
-    ],
-    icon: Sprout,
-    detailIcon: Microscope,
-    artLabel: "Herbal formulation",
-  },
-  {
-    title: "Drug Information and Pharmacovigilance Awareness Project",
-    tag: "Healthcare & Pharmaceutical Project",
-    description:
-      "An academic project focused on drug safety, adverse drug reactions, and the importance of pharmacovigilance awareness.",
-    bullets: [
-      "Studied adverse drug reactions.",
-      "Explored drug safety information.",
-      "Studied medication safety awareness.",
-      "Explored the importance of ADR reporting.",
-    ],
-    icon: ShieldCheck,
-    detailIcon: Pill,
-    artLabel: "Medication safety",
-  },
+  { name: "Data Entry & Validation", status: "Skilled", icon: ListChecks, tone: "blue", learningPercent: 30 },
+  { name: "MS Word", status: "Skilled", icon: FileText, tone: "sky", learningPercent: 30 },
+  { name: "MS PowerPoint", status: "Skilled", icon: Presentation, tone: "rose", learningPercent: 30 },
+  { name: "Medical Terminology", status: "Skilled", icon: Stethoscope, tone: "mint", learningPercent: 30 },
+  { name: "Pharmacovigilance", status: "Skilled", icon: ShieldPlus, tone: "amber", learningPercent: 30 },
 ];
 
 const education = [
@@ -139,19 +80,16 @@ const education = [
   },
   {
     qualification: "Higher Secondary Certificate (HSC)",
+    institute: "J.V.MEHTA JR.COLLAGE KHAMGAON",
     years: "2020–2021",
     score: "90.50%",
   },
   {
     qualification: "Secondary School Certificate (SSC)",
+    institute: "C.S.KOTHRI HIGHSCHOOL NANDURA",
     years: "2018–2019",
     score: "79.80%",
   },
-];
-
-const research = [
-  "Review on Gut Microbiota and Its Role in Drug Metabolism",
-  "Evaluation and Formulation of Herbal Soap Using Medicinal Plants",
 ];
 
 const professionalAreas = [
@@ -182,15 +120,6 @@ const professionalAreas = [
   },
 ];
 
-const contactDetails = [
-  { label: "Name", value: "Darshan Dilipsing Rajput", icon: UserRound },
-  { label: "Email", value: "dr9325958877@gmail.com", href: "mailto:dr9325958877@gmail.com", icon: Mail },
-  { label: "Location", value: "Buldhana, Maharashtra, India", icon: MapPin },
-  { label: "Phone", value: "+91 9356800181", href: "tel:+919356800181", icon: Phone },
-  { label: "Education", value: "Bachelor of Pharmacy (B.Pharm)", icon: GraduationCap },
-  { label: "CGPA", value: "7.38/10", icon: Award },
-];
-
 type SectionHeadingProps = {
   eyebrow: string;
   before: string;
@@ -215,7 +144,7 @@ function SectionHeading({
       </Reveal>
       <Reveal delay={80}>
         <h2 className="section-title">
-          {before} <span className="heading-accent">{highlight}</span>{after ? ` ${after}` : ""}
+          {before ? `${before} ` : null}<span className="heading-accent">{highlight}</span>{after ? ` ${after}` : ""}
         </h2>
       </Reveal>
       {description ? (
@@ -339,32 +268,17 @@ function Navbar({ linkedinUrl, resumeUrl }: NavbarProps) {
   );
 }
 
-function IntroCards() {
+function BuildStatement() {
   return (
-    <section className="intro-section" aria-label="Approach">
-      <div className="portfolio-container intro-grid">
-        <Reveal className="intro-card intro-card--statement">
-          <div className="icon-tile tone-amber"><ChartNoAxesColumnIncreasing aria-hidden="true" /></div>
-          <div>
-            <p className="eyebrow">A thoughtful approach</p>
-            <h2>Turning Data into Meaningful Insights</h2>
-          </div>
-          <ArrowUpRight className="intro-arrow" aria-hidden="true" />
+    <section className="build-statement" aria-label="Portfolio approach">
+      <div className="portfolio-container build-statement-inner">
+        <Reveal className="build-statement-copy">
+          <p className="eyebrow">A fresh start</p>
+          <h2>BUILD EVERYTHING<br /><span>FROM SCRATCH</span></h2>
         </Reveal>
-        <Reveal className="intro-card intro-card--process" delay={100}>
-          <div className="icon-tile tone-blue"><ChartPie aria-hidden="true" /></div>
-          <div className="process-content">
-            <p className="eyebrow">A clear process</p>
-            <ol className="process-list">
-              {["Learn", "Analyze", "Visualize", "Improve"].map((step, index) => (
-                <li key={step}>
-                  <span className="process-number">0{index + 1}</span>{step}
-                  {index < 3 ? <ArrowRight className="process-arrow" aria-hidden="true" /> : null}
-                </li>
-              ))}
-            </ol>
-          </div>
-        </Reveal>
+        <a className="build-statement-link" href="#about" aria-label="Continue to About Me">
+          <ArrowRight aria-hidden="true" />
+        </a>
       </div>
     </section>
   );
@@ -387,33 +301,6 @@ function AboutSection() {
             </Button>
           </Reveal>
         </div>
-        <Reveal className="info-panel" delay={120}>
-          <div className="info-panel-top">
-            <div>
-              <p className="eyebrow">A little about me</p>
-              <h3>Personal Details</h3>
-            </div>
-            <div className="info-panel-mark" aria-hidden="true"><UserRound /></div>
-          </div>
-          <div className="info-grid">
-            {contactDetails.map((item) => {
-              const Icon = item.icon;
-              return (
-                <div className="info-item" key={item.label}>
-                  <span className="icon-tile icon-tile--small tone-amber"><Icon aria-hidden="true" /></span>
-                  <div className="info-item-copy">
-                    <span className="info-label">{item.label}</span>
-                    {"href" in item ? (
-                      <a className="info-value info-value-link" href={item.href}>{item.value}</a>
-                    ) : (
-                      <span className="info-value">{item.value}</span>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </Reveal>
       </div>
     </section>
   );
@@ -421,25 +308,35 @@ function AboutSection() {
 
 function SkillCard({ skill }: { skill: Skill }) {
   const Icon = skill.icon;
+  const chartLabel = `${skill.name}: ${skill.learningPercent}%`;
+
   return (
     <article className="skill-card">
       <span className={`icon-tile skill-icon tone-${skill.tone}`}><Icon size={23} aria-hidden="true" /></span>
-      <span className="skill-name">{skill.name}</span>
-      <span className={`skill-status ${skill.status === "Learning" ? "is-learning" : ""}`}>{skill.status}</span>
+      <div className="skill-card-copy">
+        <span className="skill-name">{skill.name}</span>
+        <span className={`skill-status ${skill.status === "Learning" ? "is-learning" : ""}`}>{skill.status}</span>
+      </div>
+      <div
+        className="skill-chart"
+        style={{ "--skill-progress": `${skill.learningPercent ?? 0}%` } as CSSProperties}
+        role="img"
+        aria-label={chartLabel}
+      >
+        <span>{skill.learningPercent}%</span>
+      </div>
     </article>
   );
 }
 
-function SkillMarquee({ skills, direction }: { skills: Skill[]; direction: "left" | "right" }) {
+function SkillGrid({ skills }: { skills: Skill[] }) {
   return (
-    <div className={`skill-marquee marquee-${direction}`}>
-      <div className="marquee-track">
-        {[0, 1].map((copy) => (
-          <div className="marquee-group" key={`skill-copy-${copy}`} aria-hidden={copy === 1}>
-            {skills.map((skill) => <SkillCard key={skill.name} skill={skill} />)}
-          </div>
-        ))}
-      </div>
+    <div className="skill-grid">
+      {skills.map((skill, index) => (
+        <Reveal key={skill.name} delay={index * 45}>
+          <SkillCard skill={skill} />
+        </Reveal>
+      ))}
     </div>
   );
 }
@@ -458,13 +355,13 @@ function SkillsSection() {
         <Reveal delay={180}>
           <div className="skill-row">
             <h3 className="skill-row-label">Technical Skills</h3>
-            <SkillMarquee skills={technicalSkills} direction="left" />
+            <SkillGrid skills={technicalSkills} />
           </div>
         </Reveal>
         <Reveal delay={280}>
           <div className="skill-row">
             <h3 className="skill-row-label">Other Skills</h3>
-            <SkillMarquee skills={otherSkills} direction="right" />
+            <SkillGrid skills={otherSkills} />
           </div>
         </Reveal>
       </div>
@@ -472,89 +369,12 @@ function SkillsSection() {
   );
 }
 
-function ProjectArtwork({ project }: { project: Project }) {
-  const MainIcon = project.icon;
-  const SecondaryIcon = project.detailIcon;
-  return (
-    <div className="project-artwork" aria-label={`${project.artLabel} illustration`} role="img">
-      <div className="artwork-arc artwork-arc--one" />
-      <div className="artwork-arc artwork-arc--two" />
-      <div className="artwork-center">
-        <span className="artwork-center-icon"><MainIcon aria-hidden="true" /></span>
-        <span className="artwork-detail-icon"><SecondaryIcon aria-hidden="true" /></span>
-      </div>
-      <div className="artwork-label artwork-label--top"><Check aria-hidden="true" /> {project.artLabel}</div>
-      <div className="artwork-label artwork-label--bottom"><Sparkles aria-hidden="true" /> Academic project</div>
-    </div>
-  );
-}
-
-function ProjectCard({ project, index, onView }: { project: Project; index: number; onView: (project: Project) => void }) {
-  return (
-    <Reveal className="project-card-reveal" delay={index * 100}>
-      <article className="project-card">
-        <Reveal className="project-art-reveal" delay={80}>
-          <ProjectArtwork project={project} />
-        </Reveal>
-        <div className="project-card-content">
-          <Reveal delay={120}>
-            <span className="project-tag">{project.tag}</span>
-            <h3>{project.title}</h3>
-            <p className="project-description">{project.description}</p>
-          </Reveal>
-          <Reveal delay={200}>
-            <ul className="project-highlights">
-              {project.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}
-            </ul>
-          </Reveal>
-          <Reveal delay={280}>
-            <Button type="button" className="site-button button-primary project-view-button" onClick={() => onView(project)}>
-              View Details <ArrowUpRight aria-hidden="true" />
-            </Button>
-          </Reveal>
-        </div>
-      </article>
-    </Reveal>
-  );
-}
-
 function ProjectsSection() {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-
   return (
     <section id="projects" className="page-section projects-section">
-      <div className="portfolio-container">
-        <SectionHeading
-          eyebrow="My projects"
-          before="Featured"
-          highlight="Projects"
-          description="Explore my academic projects demonstrating my pharmaceutical knowledge, research understanding, and interest in healthcare data."
-          align="center"
-        />
-        <div className="projects-grid">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} onView={setSelectedProject} />
-          ))}
-        </div>
+      <div className="portfolio-container coming-soon-content">
+        <SectionHeading eyebrow="My projects" before="" highlight="Coming Soon" align="center" />
       </div>
-      <Dialog open={selectedProject !== null} onOpenChange={(open) => { if (!open) setSelectedProject(null); }}>
-        <DialogContent className="portfolio-dialog">
-          {selectedProject ? (
-            <>
-              <DialogHeader className="portfolio-dialog-header">
-                <span className="project-tag">{selectedProject.tag}</span>
-                <DialogTitle className="portfolio-dialog-title">{selectedProject.title}</DialogTitle>
-                <DialogDescription className="portfolio-dialog-description">
-                  {selectedProject.description}
-                </DialogDescription>
-              </DialogHeader>
-              <ul className="project-highlights dialog-highlights">
-                {selectedProject.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}
-              </ul>
-            </>
-          ) : null}
-        </DialogContent>
-      </Dialog>
     </section>
   );
 }
@@ -582,21 +402,10 @@ function EducationSection() {
           </div>
         </div>
         <div id="certificates" className="research-column">
-          <SectionHeading eyebrow="Certifications" before="Certifications &" highlight="Research" />
+          <SectionHeading eyebrow="Certifications" before="My" highlight="Certificates" />
           <Reveal delay={100}>
-            <p className="research-note">Research &amp; Publications</p>
+            <p className="certificates-empty">No certificates listed yet.</p>
           </Reveal>
-          <div className="research-list">
-            {research.map((title, index) => (
-              <Reveal key={title} delay={150 + index * 100}>
-                <article className="research-card">
-                  <span className="icon-tile tone-blue research-icon"><Microscope aria-hidden="true" /></span>
-                  <h3>{title}</h3>
-                  <ArrowUpRight className="research-arrow" aria-hidden="true" />
-                </article>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </div>
     </section>
@@ -635,30 +444,73 @@ function ProfessionalBackgroundSection() {
 }
 
 function ContactSection({ linkedinUrl }: { linkedinUrl?: string | undefined }) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const values = new FormData(form);
+    const name = String(values.get("name") ?? "").trim();
+    const email = String(values.get("email") ?? "").trim();
+    const message = String(values.get("message") ?? "").trim();
+
+    if (!name || !email || !message) {
+      form.reportValidity();
+      return;
+    }
+
+    const query = new URLSearchParams({
+      subject: `Portfolio message from ${name}`,
+      body: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+    });
+    window.location.href = `mailto:dr9325958877@gmail.com?${query.toString()}`;
+  }
+
   return (
     <section id="contact" className="contact-section">
       <div className="portfolio-container">
-        <Reveal className="contact-band">
-          <div className="contact-copy">
+        <div className="contact-layout">
+          <Reveal className="contact-copy">
             <p className="eyebrow">Open to opportunities</p>
             <h2>Let’s Work <span className="contact-accent">Together</span></h2>
             <p>
               I am actively looking for entry-level opportunities in Data Analytics, Healthcare Analytics, Pharmaceutical Data Management, and Healthcare Technology.
             </p>
-          </div>
-          <div className="contact-actions">
-            <Button asChild className="site-button button-primary">
-              <a href="mailto:dr9325958877@gmail.com">Send Email <ArrowUpRight aria-hidden="true" /></a>
-            </Button>
-            {linkedinUrl ? (
-              <Button asChild variant="outline" className="site-button button-outline">
-                <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
-                  Connect on LinkedIn <Linkedin aria-hidden="true" />
+            <div className="contact-options" aria-label="Direct contact options">
+              <a className="contact-option" href="mailto:dr9325958877@gmail.com">
+                <Mail aria-hidden="true" />
+                <span><strong>Email</strong><small>dr9325958877@gmail.com</small></span>
+              </a>
+              <a className="contact-option" href="tel:+919356800181">
+                <Phone aria-hidden="true" />
+                <span><strong>Phone</strong><small>+91 9356800181</small></span>
+              </a>
+              {linkedinUrl ? (
+                <a className="contact-option" href={linkedinUrl} target="_blank" rel="noopener noreferrer">
+                  <Linkedin aria-hidden="true" />
+                  <span><strong>LinkedIn</strong><small>View profile</small></span>
                 </a>
+              ) : null}
+            </div>
+          </Reveal>
+          <Reveal className="contact-form-wrap" delay={100}>
+            <form className="contact-form" onSubmit={handleSubmit}>
+              <label className="contact-field">
+                <span>Your name</span>
+                <input name="name" type="text" autoComplete="name" maxLength={100} required />
+              </label>
+              <label className="contact-field">
+                <span>Email address</span>
+                <input name="email" type="email" autoComplete="email" maxLength={255} required />
+              </label>
+              <label className="contact-field contact-message-field">
+                <span>Message</span>
+                <textarea name="message" rows={5} maxLength={2000} required />
+              </label>
+              <Button type="submit" className="site-button button-primary contact-submit">
+                Send Message <ArrowRight aria-hidden="true" />
               </Button>
-            ) : null}
-          </div>
-        </Reveal>
+            </form>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
@@ -705,7 +557,7 @@ export function Portfolio({ linkedinUrl, resumeUrl, videoSrc }: PortfolioProps) 
       <Navbar linkedinUrl={linkedinUrl} resumeUrl={resumeUrl} />
       <main>
         <ScrollVideoHero videoSrc={videoSrc} />
-        <IntroCards />
+        <BuildStatement />
         <AboutSection />
         <SkillsSection />
         <ProjectsSection />

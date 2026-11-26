@@ -1,5 +1,5 @@
 - [ ] Replace the About intro cards with a clear hero-to-about statement and remove the About details panel.
-- [ ] Simplify skills into larger, non-repeating cards with blank-safe animated percentage rings.
-- [ ] Replace project cards with a Coming Soon state; update HSC/SSC college names and remove existing research cards from Certifications.
+- [ ] Simplify skills into larger, non-repeating cards with 30% learning rings on each listed skill.
+- [ ] Replace project cards with a Coming Soon state; update HSC/SSC college names and remove research and certificate cards.
 - [ ] Add an accessible contact form that opens an email draft, with direct email and phone options.
 - [ ] Tune motion and mobile layout, then verify desktop/mobile preview, tests, diagnostics, and commit.
