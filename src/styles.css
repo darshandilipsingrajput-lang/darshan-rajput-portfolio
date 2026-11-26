@@ -229,6 +229,12 @@ button:focus-visible {
   border-radius: 50%;
   background: var(--amber);
   box-shadow: 0 0 0 4px color-mix(in oklab, var(--amber) 20%, transparent);
+  animation: brand-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes brand-pulse {
+  0%, 100% { box-shadow: 0 0 0 4px color-mix(in oklab, var(--amber) 20%, transparent); }
+  50% { box-shadow: 0 0 0 6px color-mix(in oklab, var(--amber) 32%, transparent); }
 }
 
 .desktop-nav {
@@ -261,16 +267,17 @@ button:focus-visible {
   content: "";
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 220ms ease;
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-link:hover::after,
+.nav-link.is-active::after {
+  transform: scaleX(1);
 }
 
 .nav-link:hover,
 .nav-link.is-active {
   color: var(--foreground);
-}
-
-.nav-link.is-active::after {
-  transform: scaleX(1);
 }
 
 .nav-actions {
@@ -473,6 +480,12 @@ button:focus-visible {
   border-radius: 50%;
   color: var(--amber);
   transition: transform 200ms ease, border-color 200ms ease;
+  animation: scroll-bob 2.2s ease-in-out infinite;
+}
+
+@keyframes scroll-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
 }
 
 .hero-scroll-icon svg {
@@ -696,6 +709,13 @@ button:focus-visible {
   border-radius: 12px;
   background: var(--card);
   box-shadow: var(--shadow-tile);
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1), border-color 320ms ease;
+}
+
+.skill-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in oklab, var(--amber) 40%, var(--border));
+  box-shadow: var(--shadow-soft);
 }
 
 .skill-icon {
@@ -813,6 +833,13 @@ button:focus-visible {
   border-radius: 16px;
   background: var(--card);
   box-shadow: var(--shadow-tile);
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1), border-color 320ms ease;
+}
+
+.education-card:hover {
+  transform: translateX(4px);
+  border-color: color-mix(in oklab, var(--amber) 40%, var(--border));
+  box-shadow: var(--shadow-soft);
 }
 
 .education-icon {
@@ -1009,6 +1036,11 @@ button:focus-visible {
   gap: 13px;
   color: var(--foreground);
   text-decoration: none;
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.contact-option:hover {
+  transform: translateX(6px);
 }
 
 .contact-option > svg {
@@ -1065,7 +1097,7 @@ button:focus-visible {
   font: inherit;
   font-weight: 500;
   outline: none;
-  transition: border-color 180ms ease, box-shadow 180ms ease;
+  transition: border-color 240ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 240ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .contact-field input {
@@ -1166,11 +1198,11 @@ button:focus-visible {
 .reveal {
   opacity: 0;
   filter: blur(8px);
-  transform: translateY(24px) scale(0.99);
+  transform: translateY(28px) scale(0.985);
   transition:
-    opacity 650ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 650ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 800ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal.is-visible {
