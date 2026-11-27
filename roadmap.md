@@ -1,5 +1,3 @@
-- [ ] Replace the About intro cards with a clear hero-to-about statement and remove the About details panel.
-- [ ] Simplify skills into larger, non-repeating cards with 30% learning rings on each listed skill.
-- [ ] Replace project cards with a Coming Soon state; update HSC/SSC college names and remove research and certificate cards.
-- [ ] Add an accessible contact form that opens an email draft, with direct email and phone options.
-- [ ] Tune motion and mobile layout, then verify desktop/mobile preview, tests, diagnostics, and commit.
+- [ ] Complete the requested portfolio edits: replace the About opener, simplify skill cards with the confirmed 30% level, show projects as Coming Soon, update HSC/SSC names, remove certificate cards, and add the email-draft contact form.
+- [ ] Restyle the existing portfolio to the supplied dark-glass reference without changing its sections, order, copy, links, or behavior; add smooth reveal/blur transitions and responsive styling.
+- [ ] Verify the preview at desktop and mobile sizes, run relevant checks, inspect diagnostics, and commit the changes.
